@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>منصة الطارق للتعليم الثانوي — أ/ محمد أشرف</title>
+    <link href="https://googleapis.com" rel="stylesheet">
     <style>
         :root {
             --primary: #1d4ed8;
@@ -19,15 +20,9 @@
             --warning: #f59e0b;
         }
 
-        * {
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
+        * { box-sizing: border-box; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; }
         body { background-color: var(--bg); color: var(--text); line-height: 1.6; }
 
-        /* الهيدر العلوي */
         .navbar {
             background: #ffffff;
             padding: 0.9rem 2rem;
@@ -70,54 +65,41 @@
         .nav-btn-outline { border-color: var(--primary); color: var(--primary); background: transparent; }
         .nav-btn-outline:hover, .nav-btn-outline.active { background: var(--primary); color: white; }
         .nav-btn-teacher { background: var(--secondary); color: white; }
-        .nav-btn-teacher:hover, .nav-btn-teacher.active { background: #334155; border-color: var(--accent); }
+        .nav-btn-teacher:hover { background: #334155; }
 
-        /* البانر الترحيبي */
         .hero {
             background: linear-gradient(135deg, var(--primary-dark), var(--primary));
             color: white;
-            padding: 2.2rem 1.5rem;
+            padding: 2.5rem 1.5rem;
             text-align: center;
             border-bottom: 4px solid var(--accent);
         }
-        .hero h2 { font-size: 1.9rem; font-weight: 900; margin-bottom: 0.4rem; }
+        .hero h2 { font-size: 2rem; font-weight: 900; margin-bottom: 0.4rem; }
         .hero p { color: #e2e8f0; font-size: 1.05rem; max-width: 650px; margin: 0 auto; }
 
-        /* الحاوية */
-        .container { max-width: 1120px; margin: 2rem auto; padding: 0 1rem; }
+        .container { max-width: 1100px; margin: 2rem auto; padding: 0 1rem; }
         .view-section { display: none; animation: fadeIn 0.3s ease; }
         .view-section.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* البطاقات */
         .card {
             background: var(--card);
-            padding: 1.8rem;
+            padding: 2rem;
             border-radius: 14px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.05);
             margin-bottom: 1.5rem;
             border: 1px solid #e2e8f0;
         }
-        .card-header {
-            margin-bottom: 1.4rem;
-            border-bottom: 2px solid #f1f5f9;
-            padding-bottom: 0.8rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        .card-header h3 { color: var(--primary-dark); font-size: 1.3rem; font-weight: 800; }
+        .card-header { margin-bottom: 1.5rem; border-bottom: 2px solid #f1f5f9; padding-bottom: 0.8rem; }
+        .card-header h3 { color: var(--primary-dark); font-size: 1.35rem; font-weight: 800; }
         .card-header p { color: var(--muted); font-size: 0.9rem; }
 
-        /* النماذج وحقول الإدخال */
-        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; }
+        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; }
         .form-group { margin-bottom: 1rem; position: relative; }
         label { display: block; font-weight: 700; margin-bottom: 0.35rem; font-size: 0.9rem; color: var(--secondary); }
         input, select, textarea {
             width: 100%;
-            padding: 0.72rem 0.9rem;
+            padding: 0.75rem 0.9rem;
             border: 1.5px solid #cbd5e1;
             border-radius: 9px;
             font-size: 0.95rem;
@@ -136,17 +118,15 @@
             background: none;
             border: none;
             cursor: pointer;
-            font-size: 0.85rem;
-            font-weight: bold;
-            color: var(--primary);
+            font-size: 1.1rem;
+            color: var(--muted);
         }
 
-        /* الأزرار */
         .btn {
             background: var(--primary);
             color: white;
             border: none;
-            padding: 0.75rem 1.4rem;
+            padding: 0.8rem 1.5rem;
             border-radius: 9px;
             font-size: 0.95rem;
             font-weight: 700;
@@ -155,20 +135,16 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
+            gap: 8px;
         }
         .btn:hover { background: var(--primary-dark); }
         .btn-block { width: 100%; }
         .btn-success { background: var(--success); }
         .btn-success:hover { background: #059669; }
-        .btn-warning { background: var(--warning); color: #0f172a; }
         .btn-danger { background: var(--danger); }
         .btn-danger:hover { background: #dc2626; }
-        .btn-outline { background: transparent; border: 1.5px solid var(--primary); color: var(--primary); }
-        .btn-outline:hover { background: var(--primary); color: white; }
-        .btn-sm { padding: 0.38rem 0.75rem; font-size: 0.82rem; border-radius: 7px; }
+        .btn-sm { padding: 0.4rem 0.8rem; font-size: 0.82rem; }
 
-        /* تبويبات الدخول والتسجيل */
         .auth-tabs { display: flex; gap: 10px; margin-bottom: 1.5rem; background: #f1f5f9; padding: 6px; border-radius: 10px; }
         .auth-tab {
             flex: 1;
@@ -180,34 +156,28 @@
             border: none;
             background: transparent;
             color: var(--muted);
-            transition: 0.2s;
         }
         .auth-tab.active { background: white; color: var(--primary); box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
 
-        /* الإحصائيات */
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
         .stat-card {
-            background: #ffffff;
+            background: #f8fafc;
             padding: 1.2rem;
             border-radius: 12px;
             border-right: 5px solid var(--primary);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
         }
         .stat-card h4 { font-size: 1.9rem; font-weight: 900; color: var(--primary-dark); }
         .stat-card span { font-size: 0.9rem; font-weight: 700; color: var(--muted); }
 
-        /* الجداول */
         .table-wrap { overflow-x: auto; }
         table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
         th, td { padding: 0.85rem; text-align: right; border-bottom: 1px solid #e2e8f0; white-space: nowrap; }
         th { background: #f1f5f9; color: var(--secondary); font-weight: 800; }
-        tr:hover td { background: #f8fafc; }
-        .badge { padding: 0.25rem 0.7rem; border-radius: 20px; font-size: 0.78rem; font-weight: 800; display: inline-block; }
+        .badge { padding: 0.25rem 0.7rem; border-radius: 20px; font-size: 0.78rem; font-weight: 800; }
         .badge-pending { background: #fef3c7; color: #b45309; }
         .badge-approved { background: #d1fae5; color: #065f46; }
-        .badge-sub { background: #dbeafe; color: #1e40af; }
 
-        /* بطاقات الكورسات */
         .courses-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.2rem; }
         .course-box {
             border: 1.5px solid #e2e8f0;
@@ -217,1098 +187,974 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: transform 0.2s;
         }
-        .course-box:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(0,0,0,0.08); }
-        .course-banner {
-            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
-            color: white;
-            padding: 1.1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .course-grade-tag {
-            background: var(--accent);
-            color: var(--secondary);
-            padding: 0.2rem 0.65rem;
-            border-radius: 6px;
-            font-size: 0.78rem;
-            font-weight: 800;
-        }
-        .course-body { padding: 1.2rem; flex-grow: 1; }
-        .course-body h4 { font-size: 1.15rem; color: var(--secondary); margin-bottom: 0.5rem; }
-        .course-body p { font-size: 0.9rem; color: var(--muted); margin-bottom: 1rem; }
-        .course-meta { display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--text); font-weight: 700; margin-bottom: 1rem; background: #f8fafc; padding: 0.6rem; border-radius: 8px; }
-        .course-footer { padding: 1rem 1.2rem; background: #f8fafc; border-top: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+        .course-box:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
+        .course-header { background: var(--primary-dark); color: white; padding: 1rem; }
+        .course-header h4 { font-size: 1.1rem; font-weight: 800; }
+        .course-grade { font-size: 0.8rem; background: var(--accent); color: #0f172a; padding: 2px 8px; border-radius: 6px; font-weight: 800; display: inline-block; margin-top: 5px; }
+        .course-body { padding: 1rem; color: var(--text); font-size: 0.92rem; flex-grow: 1; }
+        .course-footer { padding: 1rem; border-top: 1px solid #f1f5f9; background: #f8fafc; }
 
-        /* الإشعارات والرسائل */
-        .toast {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            background: var(--secondary);
-            color: white;
-            padding: 0.9rem 1.4rem;
-            border-radius: 10px;
-            font-weight: 700;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-            z-index: 3000;
-            display: none;
-            border-right: 5px solid var(--accent);
-        }
-
-        /* النافذة المنبثقة (Modal) */
-        .modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(15, 23, 42, 0.65);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 2000;
-            padding: 1rem;
-        }
-        .modal-overlay.active { display: flex; }
-        .modal-box {
-            background: white;
-            border-radius: 14px;
-            max-width: 650px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-            padding: 1.8rem;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.25);
-        }
-
-        .lesson-item {
-            padding: 0.9rem;
-            border: 1px solid #e2e8f0;
-            border-radius: 9px;
-            margin-bottom: 0.7rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: #f8fafc;
-        }
-        .filter-bar {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-bottom: 1.2rem;
-            align-items: center;
-        }
-        .filter-bar input, .filter-bar select { width: auto; min-width: 200px; flex: 1; }
+        .alert { padding: 1rem; border-radius: 10px; margin-bottom: 1rem; font-weight: 700; display: none; }
+        .alert-info { background: #dbeafe; color: #1e40af; border: 1px solid #93c5fd; }
+        .alert-danger { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
+        .alert-success { background: #d1fae5; color: #065f46; border: 1px solid #6ee7b7; }
     </style>
 </head>
 <body>
 
-    <!-- الهيدر العلوي -->
     <nav class="navbar">
         <div class="brand">
             <div class="brand-logo">ط</div>
             <div class="brand-text">
                 <h1>منصة الطارق للتعليم الثانوي</h1>
-                <span>إشراف الأستاذ / محمد أشرف</span>
+                <span>إشراف أ/ محمد أشرف</span>
             </div>
         </div>
-        <div class="nav-actions" id="mainNavActions">
-            <button class="nav-btn nav-btn-outline active" onclick="switchView('homeView', this)">الرئيسية والكورسات</button>
-            <button class="nav-btn nav-btn-outline" id="navAuthBtn" onclick="switchView('authView', this)">دخول / تسجيل طالب</button>
-            <button class="nav-btn nav-btn-outline" id="navStudentDashBtn" style="display:none;" onclick="switchView('studentDashView', this)">لوحة الطالب</button>
-            <button class="nav-btn nav-btn-teacher" id="navTeacherBtn" onclick="openTeacherLogin()">لوحة تحكم المعلم</button>
-            <button class="nav-btn btn-danger btn-sm" id="navLogoutBtn" style="display:none;" onclick="logoutUser()">تسجيل خروج</button>
+        <div class="nav-actions">
+            <button class="nav-btn nav-btn-outline active" onclick="showView('student-auth')">بوابة الطالب</button>
+            <button class="nav-btn nav-btn-teacher" onclick="showView('teacher-login')">لوحة تحكم المدرس</button>
         </div>
     </nav>
 
-    <!-- البانر الترحيبي -->
-    <header class="hero">
+    <section class="hero">
         <h2>أهلاً بك في منصة الطارق التعليمية</h2>
-        <p>نظام تعليمي تفاعلي متكامل لطلاب المرحلة الثانوية — متابعة الدروس، الاختبارات، وسجلات الاشتراك بسهولة وأمان.</p>
-    </header>
+        <p>طريقك للتفوق والدرجة النهائية في المرحلة الثانوية مع الأستاذ محمد أشرف — جميع الحصص والمراجعات متاحة أونلاين في أي وقت.</p>
+    </section>
 
-    <main class="container">
+    <div class="container">
+        <div id="global-alert" class="alert"></div>
 
-        <!-- 1. قسم الرئيسية والكورسات -->
-        <section id="homeView" class="view-section active">
-            <div class="card">
-                <div class="card-header">
-                    <div>
-                        <h3>الكورسات المتاحة على المنصة</h3>
-                        <p>تصفح الكورسات حسب الصف الدراسي واشترك لبدء المذاكرة فوراً</p>
-                    </div>
-                    <select id="gradeFilter" onchange="renderCourses()" style="width:auto; min-width:190px;">
-                        <option value="all">جميع الصفوف الدراسية</option>
-                        <option value="الصف الأول الثانوي">الصف الأول الثانوي</option>
-                        <option value="الصف الثاني الثانوي">الصف الثاني الثانوي</option>
-                        <option value="الصف الثالث الثانوي">الصف الثالث الثانوي</option>
-                    </select>
-                </div>
-                <div class="courses-grid" id="coursesContainer"></div>
-            </div>
-        </section>
-
-        <!-- 2. قسم تسجيل الدخول وإنشاء حساب طالب -->
-        <section id="authView" class="view-section">
-            <div class="card" style="max-width: 600px; margin: 0 auto;">
+        <!-- بوابة الطالب -->
+        <div id="student-auth" class="view-section active">
+            <div class="card" style="max-width: 550px; margin: 0 auto;">
                 <div class="auth-tabs">
-                    <button class="auth-tab active" id="tabLoginBtn" onclick="toggleAuthTab('login')">تسجيل الدخول</button>
-                    <button class="auth-tab" id="tabRegisterBtn" onclick="toggleAuthTab('register')">إنشاء حساب طالب جديد</button>
-                </div>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة الطارق للتعليم الثانوي — أ/ محمد أشرف</title>
+    <link href="https://googleapis.com" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1d4ed8;
+            --primary-dark: #1e3a8a;
+            --secondary: #0f172a;
+            --accent: #f59e0b;
+            --bg: #f1f5f9;
+            --card: #ffffff;
+            --text: #1e293b;
+            --muted: #64748b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+        }
 
-                <!-- نموذج تسجيل الدخول -->
-                <form id="loginForm" onsubmit="handleStudentLogin(event)">
-                    <div class="form-group">
-                        <label>رقم الهاتف المسجل</label>
-                        <input type="tel" id="loginPhone" placeholder="مثال: 01012345678" required>
-                    </div>
-                    <div class="form-group">
-                        <label>كلمة المرور</label>
-                        <div class="pass-wrapper">
-                            <input type="password" id="loginPass" placeholder="أدخل كلمة المرور" required>
-                            <button type="button" class="toggle-pass" onclick="togglePassword('loginPass')">إظهار</button>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-block">دخول إلى حسابي</button>
-                    <p style="margin-top: 1rem; font-size: 0.85rem; color: var(--muted); text-align: center;">
-                        حساب تجريبي جاهز: الهاتف <strong>01000000001</strong> | كلمة المرور <strong>123456</strong>
-                    </p>
-                </form>
+        * { box-sizing: border-box; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; }
+        body { background-color: var(--bg); color: var(--text); line-height: 1.6; }
 
-                <!-- نموذج إنشاء حساب -->
-                <form id="registerForm" style="display:none;" onsubmit="handleStudentRegister(event)">
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label>الاسم ثلاثي</label>
-                            <input type="text" id="regName" placeholder="أدخل اسمك بالكامل" required>
-                        </div>
-                        <div class="form-group">
-                            <label>الصف الدراسي</label>
-                            <select id="regGrade" required>
-                                <option value="الصف الأول الثانوي">الصف الأول الثانوي</option>
-                                <option value="الصف الثاني الثانوي">الصف الثاني الثانوي</option>
-                                <option value="الصف الثالث الثانوي">الصف الثالث الثانوي</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>رقم هاتف الطالب</label>
-                            <input type="tel" id="regPhone" placeholder="01xxxxxxxxx" required>
-                        </div>
-                        <div class="form-group">
-                            <label>رقم هاتف ولي الأمر</label>
-                            <input type="tel" id="regParentPhone" placeholder="01xxxxxxxxx" required>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>كلمة المرور</label>
-                        <div class="pass-wrapper">
-                            <input type="password" id="regPass" placeholder="اختر كلمة مرور قوية" required>
-                            <button type="button" class="toggle-pass" onclick="togglePassword('regPass')">إظهار</button>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-success btn-block">تسجيل الحساب الآن</button>
-                </form>
+        .navbar {
+            background: #ffffff;
+            padding: 0.9rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .brand { display: flex; align-items: center; gap: 12px; }
+        .brand-logo {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            font-weight: 900;
+        }
+        .brand-text h1 { font-size: 1.25rem; font-weight: 800; color: var(--primary-dark); line-height: 1.2; }
+        .brand-text span { font-size: 0.85rem; color: var(--muted); font-weight: 600; }
+
+        .nav-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+        .nav-btn {
+            padding: 0.55rem 1.1rem;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.2s;
+        }
+        .nav-btn-outline { border-color: var(--primary); color: var(--primary); background: transparent; }
+        .nav-btn-outline:hover, .nav-btn-outline.active { background: var(--primary); color: white; }
+        .nav-btn-teacher { background: var(--secondary); color: white; }
+        .nav-btn-teacher:hover { background: #334155; }
+
+        .hero {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            color: white;
+            padding: 2.5rem 1.5rem;
+            text-align: center;
+            border-bottom: 4px solid var(--accent);
+        }
+        .hero h2 { font-size: 2rem; font-weight: 900; margin-bottom: 0.4rem; }
+        .hero p { color: #e2e8f0; font-size: 1.05rem; max-width: 650px; margin: 0 auto; }
+
+        .container { max-width: 1100px; margin: 2rem auto; padding: 0 1rem; }
+        .view-section { display: none; animation: fadeIn 0.3s ease; }
+        .view-section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+        .card {
+            background: var(--card);
+            padding: 2rem;
+            border-radius: 14px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            margin-bottom: 1.5rem;
+            border: 1px solid #e2e8f0;
+        }
+        .card-header { margin-bottom: 1.5rem; border-bottom: 2px solid #f1f5f9; padding-bottom: 0.8rem; }
+        .card-header h3 { color: var(--primary-dark); font-size: 1.35rem; font-weight: 800; }
+        .card-header p { color: var(--muted); font-size: 0.9rem; }
+
+        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; }
+        .form-group { margin-bottom: 1rem; position: relative; }
+        label { display: block; font-weight: 700; margin-bottom: 0.35rem; font-size: 0.9rem; color: var(--secondary); }
+        input, select, textarea {
+            width: 100%;
+            padding: 0.75rem 0.9rem;
+            border: 1.5px solid #cbd5e1;
+            border-radius: 9px;
+            font-size: 0.95rem;
+            outline: none;
+            transition: 0.2s;
+            background: #f8fafc;
+        }
+        input:focus, select:focus, textarea:focus { border-color: var(--primary); background: #ffffff; }
+
+        .pass-wrapper { position: relative; }
+        .toggle-pass {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            color: var(--muted);
+        }
+
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 9px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .btn:hover { background: var(--primary-dark); }
+        .btn-block { width: 100%; }
+        .btn-success { background: var(--success); }
+        .btn-success:hover { background: #059669; }
+        .btn-danger { background: var(--danger); }
+        .btn-danger:hover { background: #dc2626; }
+        .btn-sm { padding: 0.4rem 0.8rem; font-size: 0.82rem; }
+
+        .auth-tabs { display: flex; gap: 10px; margin-bottom: 1.5rem; background: #f1f5f9; padding: 6px; border-radius: 10px; }
+        .auth-tab {
+            flex: 1;
+            padding: 0.7rem;
+            text-align: center;
+            border-radius: 8px;
+            font-weight: 800;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            color: var(--muted);
+        }
+        .auth-tab.active { background: white; color: var(--primary); box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
+
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+        .stat-card {
+            background: #f8fafc;
+            padding: 1.2rem;
+            border-radius: 12px;
+            border-right: 5px solid var(--primary);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
+        .stat-card h4 { font-size: 1.9rem; font-weight: 900; color: var(--primary-dark); }
+        .stat-card span { font-size: 0.9rem; font-weight: 700; color: var(--muted); }
+
+        .table-wrap { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+        th, td { padding: 0.85rem; text-align: right; border-bottom: 1px solid #e2e8f0; white-space: nowrap; }
+        th { background: #f1f5f9; color: var(--secondary); font-weight: 800; }
+        .badge { padding: 0.25rem 0.7rem; border-radius: 20px; font-size: 0.78rem; font-weight: 800; }
+        .badge-pending { background: #fef3c7; color: #b45309; }
+        .badge-approved { background: #d1fae5; color: #065f46; }
+
+        .courses-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.2rem; }
+        .course-box {
+            border: 1.5px solid #e2e8f0;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.2s;
+        }
+        .course-box:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
+        .course-header { background: var(--primary-dark); color: white; padding: 1rem; }
+        .course-header h4 { font-size: 1.1rem; font-weight: 800; }
+        .course-grade { font-size: 0.8rem; background: var(--accent); color: #0f172a; padding: 2px 8px; border-radius: 6px; font-weight: 800; display: inline-block; margin-top: 5px; }
+        .course-body { padding: 1rem; color: var(--text); font-size: 0.92rem; flex-grow: 1; }
+        .course-footer { padding: 1rem; border-top: 1px solid #f1f5f9; background: #f8fafc; }
+
+        .alert { padding: 1rem; border-radius: 10px; margin-bottom: 1rem; font-weight: 700; display: none; }
+        .alert-info { background: #dbeafe; color: #1e40af; border: 1px solid #93c5fd; }
+        .alert-danger { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
+        .alert-success { background: #d1fae5; color: #065f46; border: 1px solid #6ee7b7; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="brand">
+            <div class="brand-logo">ط</div>
+            <div class="brand-text">
+                <h1>منصة الطارق للتعليم الثانوي</h1>
+                <span>إشراف أ/ محمد أشرف</span>
             </div>
-        </section>
-
-        <!-- 3. لوحة تحكم الطالب -->
-        <section id="studentDashView" class="view-section">
-            <div class="card">
-                <div class="card-header">
-                    <div>
-                        <h3 id="studentWelcomeTitle">مرحباً بك يا بطل</h3>
-                        <p id="studentInfoSub">بيانات الطالب وحالة الاشتراكات</p>
-                    </div>
-                    <button class="btn btn-outline btn-sm" onclick="switchView('homeView')">استكشاف كورسات إضافية</button>
-                </div>
-
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <h4 id="stSubCount">0</h4>
-                        <span>الكورسات المشترك بها</span>
-                    </div>
-                    <div class="stat-card" style="border-right-color: var(--success);">
-                        <h4 id="stApprovedCount">0</h4>
-                        <span>اشتراكات مفعلة</span>
-                    </div>
-                    <div class="stat-card" style="border-right-color: var(--warning);">
-                        <h4 id="stPendingCount">0</h4>
-                        <span>طلبات قيد المراجعة</span>
-                    </div>
-                </div>
-
-                <h4 style="margin-bottom: 1rem; color: var(--primary-dark);">سجل اشتراكاتي وكورساتي</h4>
-                <div class="table-wrap">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>اسم الكورس</th>
-                                <th>الصف الدراسي</th>
-                                <th>تاريخ الطلب</th>
-                                <th>حالة الاشتراك</th>
-                                <th>الإجراء</th>
-                            </tr>
-                        </thead>
-                        <tbody id="studentSubsTable"></tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
-
-        <!-- 4. لوحة تحكم المعلم (إدارة السجلات والبيانات والكورسات) -->
-        <section id="teacherDashView" class="view-section">
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <h4 id="tTotalStudents">0</h4>
-                    <span>إجمالي الطلاب المسجلين</span>
-                </div>
-                <div class="stat-card" style="border-right-color: var(--warning);">
-                    <h4 id="tPendingSubs">0</h4>
-                    <span>طلبات اشتراك معلقة</span>
-                </div>
-                <div class="stat-card" style="border-right-color: var(--success);">
-                    <h4 id="tActiveSubs">0</h4>
-                    <span>اشتراكات مفعلة</span>
-                </div>
-                <div class="stat-card" style="border-right-color: var(--secondary);">
-                    <h4 id="tTotalCourses">0</h4>
-                    <span>عدد الكورسات المتاحة</span>
-                </div>
-            </div>
-
-            <!-- تبويبات لوحة المعلم -->
-            <div class="auth-tabs">
-                <button class="auth-tab active" onclick="switchTeacherTab('subsTab', this)">طلبات الاشتراك والسجلات</button>
-                <button class="auth-tab" onclick="switchTeacherTab('studentsTab', this)">بيانات الطلاب</button>
-                <button class="auth-tab" onclick="switchTeacherTab('coursesTab', this)">إدارة الكورسات</button>
-            </div>
-
-            <!-- تبويب 1: إدارة طلبات الاشتراك -->
-            <div id="subsTab" class="teacher-tab-panel">
-                <div class="card">
-                    <div class="card-header">
-                        <div>
-                            <h3>سجل طلبات الاشتراك</h3>
-                            <p>تفعيل أو إلغاء اشتراكات الطلاب في الكورسات</p>
-                        </div>
-                        <button class="btn btn-outline btn-sm" onclick="exportRecordsCSV()">تصدير السجل (CSV)</button>
-                    </div>
-                    <div class="filter-bar">
-                        <input type="text" id="subSearchInput" placeholder="بحث باسم الطالب أو الكورس..." onkeyup="renderTeacherDashboard()">
-                        <select id="subStatusFilter" onchange="renderTeacherDashboard()">
-                            <option value="all">جميع الحالات</option>
-                            <option value="pending">قيد المراجعة فقط</option>
-                            <option value="approved">مفعل فقط</option>
-                        </select>
-                    </div>
-                    <div class="table-wrap">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>اسم الطالب</th>
-                                    <th>رقم الهاتف</th>
-                                    <th>الكورس المطلوب</th>
-                                    <th>التاريخ</th>
-                                    <th>الحالة</th>
-                                    <th>التحكم</th>
-                                </tr>
-                            </thead>
-                            <tbody id="teacherSubsTable"></tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <!-- تبويب 2: سجلات بيانات الطلاب -->
-            <div id="studentsTab" class="teacher-tab-panel" style="display:none;">
-                <div class="card">
-                    <div class="card-header">
-                        <div>
-                            <h3>قاعدة بيانات الطلاب المسجلين</h3>
-                            <p>عرض وتعديل وحذف سجلات الطلاب</p>
-                        </div>
-                        <button class="btn btn-sm" onclick="openAddStudentModal()">+ إضافة طالب يدوياً</button>
-                    </div>
-                    <div class="filter-bar">
-                        <input type="text" id="studentSearchInput" placeholder="ابحث بالاسم أو رقم الهاتف..." onkeyup="renderTeacherDashboard()">
-                        <select id="studentGradeFilter" onchange="renderTeacherDashboard()">
-                            <option value="all">كل الصفوف</option>
-                            <option value="الصف الأول الثانوي">الصف الأول الثانوي</option>
-                            <option value="الصف الثاني الثانوي">الصف الثاني الثانوي</option>
-                            <option value="الصف الثالث الثانوي">الصف الثالث الثانوي</option>
-                        </select>
-                    </div>
-                    <div class="table-wrap">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>اسم الطالب</th>
-                                    <th>الصف الدراسي</th>
-                                    <th>هاتف الطالب</th>
-                                    <th>هاتف ولي الأمر</th>
-                                    <th>عدد الكورسات</th>
-                                    <th>إجراءات</th>
-                                </tr>
-                            </thead>
-                            <tbody id="teacherStudentsTable"></tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <!-- تبويب 3: إدارة الكورسات -->
-            <div id="coursesTab" class="teacher-tab-panel" style="display:none;">
-                <div class="card">
-                    <div class="card-header">
-                        <div>
-                            <h3>إدارة الكورسات والدروس</h3>
-                            <p>إضافة كورس جديد أو حذف كورس حالي</p>
-                        </div>
-                        <button class="btn btn-success btn-sm" onclick="openAddCourseModal()">+ إضافة كورس جديد</button>
-                    </div>
-                    <div class="table-wrap">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>عنوان الكورس</th>
-                                    <th>الصف</th>
-                                    <th>عدد الدروس</th>
-                                    <th>السعر</th>
-                                    <th>إجراءات</th>
-                                </tr>
-                            </thead>
-                            <tbody id="teacherCoursesTable"></tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- نافذة عرض محتوى الكورس والدروس -->
-    <div class="modal-overlay" id="courseContentModal">
-        <div class="modal-box">
-            <div class="card-header">
-                <h3 id="modalCourseTitle">محتوى الكورس</h3>
-                <button class="btn btn-danger btn-sm" onclick="closeModal('courseContentModal')">إغلاق</button>
-            </div>
-            <p id="modalCourseDesc" style="margin-bottom: 1rem; color: var(--muted);"></p>
-            <div id="modalLessonsList"></div>
         </div>
-    </div>
-
-    <!-- نافذة إضافة كورس جديد للمعلم -->
-    <div class="modal-overlay" id="addCourseModal">
-        <div class="modal-box">
-            <div class="card-header">
-                <h3>إضافة كورس جديد للمنصة</h3>
-                <button class="btn btn-danger btn-sm" onclick="closeModal('addCourseModal')">إغلاق</button>
-            </div>
-            <form onsubmit="handleAddCourse(event)">
-                <div class="form-group">
-                    <label>عنوان الكورس</label>
-                    <input type="text" id="newCourseTitle" placeholder="مثال: مراجعة الفصل الأول فيزياء" required>
-                </div>
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label>الصف الدراسي</label>
-                        <select id="newCourseGrade" required>
-                            <option value="الصف الأول الثانوي">الصف الأول الثانوي</option>
-                            <option value="الصف الثاني الثانوي">الصف الثاني الثانوي</option>
-                            <option value="الصف الثالث الثانوي">الصف الثالث الثانوي</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>سعر الاشتراك (جنيه مصري)</label>
-                        <input type="number" id="newCoursePrice" placeholder="150" required>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>وصف الكورس</label>
-                    <textarea id="newCourseDesc" rows="2" placeholder="نبذة مختصرة عن محتوى الكورس..." required></textarea>
-                </div>
-                <div class="form-group">
-                    <label>عناوين الدروس (افصل بين كل درس بفاصلة , )</label>
-                    <input type="text" id="newCourseLessons" placeholder="الدرس الأول: مقدمة, الدرس الثاني: تطبيقات, امتحان شامل" required>
-                </div>
-                <button type="submit" class="btn btn-success btn-block">حفظ ونشر الكورس</button>
-            </form>
+        <div class="nav-actions">
+            <button class="nav-btn nav-btn-outline active" onclick="showView('student-auth')">بوابة الطالب</button>
+            <button class="nav-btn nav-btn-teacher" onclick="showView('teacher-login')">لوحة تحكم المدرس</button>
         </div>
-    </div>
+    </nav>
 
-    <!-- نافذة إضافة طالب يدوياً -->
-    <div class="modal-overlay" id="addStudentModal">
-        <div class="modal-box">
-            <div class="card-header">
-                <h3>إضافة سجل طالب جديد</h3>
-                <button class="btn btn-danger btn-sm" onclick="closeModal('addStudentModal')">إغلاق</button>
+    <section class="hero">
+        <h2>أهلاً بك في منصة الطارق التعليمية</h2>
+        <p>طريقك للتفوق والدرجة النهائية في المرحلة الثانوية مع الأستاذ محمد أشرف — جميع الحصص والمراجعات متاحة أونلاين في أي وقت.</p>
+    </section>
+
+    <div class="container">
+        <div id="global-alert" class="alert"></div>
+
+        <!-- بوابة الطالب -->
+        <div id="student-auth" class="view-section active">
+            <div class="card" style="max-width: 550px; margin: 0 auto;">
+                <div class="auth-tabs">
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة الطارق للتعليم الثانوي — أ/ محمد أشرف</title>
+    <link href="https://googleapis.com" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1d4ed8;
+            --primary-dark: #1e3a8a;
+            --secondary: #0f172a;
+            --accent: #f59e0b;
+            --bg: #f1f5f9;
+            --card: #ffffff;
+            --text: #1e293b;
+            --muted: #64748b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+        }
+
+        * { box-sizing: border-box; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; }
+        body { background-color: var(--bg); color: var(--text); line-height: 1.6; }
+
+        .navbar {
+            background: #ffffff;
+            padding: 0.9rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .brand { display: flex; align-items: center; gap: 12px; }
+        .brand-logo {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            font-weight: 900;
+        }
+        .brand-text h1 { font-size: 1.25rem; font-weight: 800; color: var(--primary-dark); line-height: 1.2; }
+        .brand-text span { font-size: 0.85rem; color: var(--muted); font-weight: 600; }
+
+        .nav-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+        .nav-btn {
+            padding: 0.55rem 1.1rem;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.2s;
+        }
+        .nav-btn-outline { border-color: var(--primary); color: var(--primary); background: transparent; }
+        .nav-btn-outline:hover, .nav-btn-outline.active { background: var(--primary); color: white; }
+        .nav-btn-teacher { background: var(--secondary); color: white; }
+        .nav-btn-teacher:hover { background: #334155; }
+
+        .hero {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            color: white;
+            padding: 2.5rem 1.5rem;
+            text-align: center;
+            border-bottom: 4px solid var(--accent);
+        }
+        .hero h2 { font-size: 2rem; font-weight: 900; margin-bottom: 0.4rem; }
+        .hero p { color: #e2e8f0; font-size: 1.05rem; max-width: 650px; margin: 0 auto; }
+
+        .container { max-width: 1100px; margin: 2rem auto; padding: 0 1rem; }
+        .view-section { display: none; animation: fadeIn 0.3s ease; }
+        .view-section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+        .card {
+            background: var(--card);
+            padding: 2rem;
+            border-radius: 14px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            margin-bottom: 1.5rem;
+            border: 1px solid #e2e8f0;
+        }
+        .card-header { margin-bottom: 1.5rem; border-bottom: 2px solid #f1f5f9; padding-bottom: 0.8rem; }
+        .card-header h3 { color: var(--primary-dark); font-size: 1.35rem; font-weight: 800; }
+        .card-header p { color: var(--muted); font-size: 0.9rem; }
+
+        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; }
+        .form-group { margin-bottom: 1rem; position: relative; }
+        label { display: block; font-weight: 700; margin-bottom: 0.35rem; font-size: 0.9rem; color: var(--secondary); }
+        input, select, textarea {
+            width: 100%;
+            padding: 0.75rem 0.9rem;
+            border: 1.5px solid #cbd5e1;
+            border-radius: 9px;
+            font-size: 0.95rem;
+            outline: none;
+            transition: 0.2s;
+            background: #f8fafc;
+        }
+        input:focus, select:focus, textarea:focus { border-color: var(--primary); background: #ffffff; }
+
+        .pass-wrapper { position: relative; }
+        .toggle-pass {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            color: var(--muted);
+        }
+
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 9px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .btn:hover { background: var(--primary-dark); }
+        .btn-block { width: 100%; }
+        .btn-success { background: var(--success); }
+        .btn-success:hover { background: #059669; }
+        .btn-danger { background: var(--danger); }
+        .btn-danger:hover { background: #dc2626; }
+        .btn-sm { padding: 0.4rem 0.8rem; font-size: 0.82rem; }
+
+        .auth-tabs { display: flex; gap: 10px; margin-bottom: 1.5rem; background: #f1f5f9; padding: 6px; border-radius: 10px; }
+        .auth-tab {
+            flex: 1;
+            padding: 0.7rem;
+            text-align: center;
+            border-radius: 8px;
+            font-weight: 800;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            color: var(--muted);
+        }
+        .auth-tab.active { background: white; color: var(--primary); box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
+
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+        .stat-card {
+            background: #f8fafc;
+            padding: 1.2rem;
+            border-radius: 12px;
+            border-right: 5px solid var(--primary);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
+        .stat-card h4 { font-size: 1.9rem; font-weight: 900; color: var(--primary-dark); }
+        .stat-card span { font-size: 0.9rem; font-weight: 700; color: var(--muted); }
+
+        .table-wrap { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+        th, td { padding: 0.85rem; text-align: right; border-bottom: 1px solid #e2e8f0; white-space: nowrap; }
+        th { background: #f1f5f9; color: var(--secondary); font-weight: 800; }
+        .badge { padding: 0.25rem 0.7rem; border-radius: 20px; font-size: 0.78rem; font-weight: 800; }
+        .badge-pending { background: #fef3c7; color: #b45309; }
+        .badge-approved { background: #d1fae5; color: #065f46; }
+
+        .courses-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.2rem; }
+        .course-box {
+            border: 1.5px solid #e2e8f0;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.2s;
+        }
+        .course-box:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
+        .course-header { background: var(--primary-dark); color: white; padding: 1rem; }
+        .course-header h4 { font-size: 1.1rem; font-weight: 800; }
+        .course-grade { font-size: 0.8rem; background: var(--accent); color: #0f172a; padding: 2px 8px; border-radius: 6px; font-weight: 800; display: inline-block; margin-top: 5px; }
+        .course-body { padding: 1rem; color: var(--text); font-size: 0.92rem; flex-grow: 1; }
+        .course-footer { padding: 1rem; border-top: 1px solid #f1f5f9; background: #f8fafc; }
+
+        .alert { padding: 1rem; border-radius: 10px; margin-bottom: 1rem; font-weight: 700; display: none; }
+        .alert-info { background: #dbeafe; color: #1e40af; border: 1px solid #93c5fd; }
+        .alert-danger { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
+        .alert-success { background: #d1fae5; color: #065f46; border: 1px solid #6ee7b7; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="brand">
+            <div class="brand-logo">ط</div>
+            <div class="brand-text">
+                <h1>منصة الطارق للتعليم الثانوي</h1>
+                <span>إشراف أ/ محمد أشرف</span>
             </div>
-            <form onsubmit="handleManualAddStudent(event)">
-                <div class="form-group">
-                    <label>اسم الطالب</label>
-                    <input type="text" id="mStudentName" required>
-                </div>
-                <div class="form-group">
-                    <label>الصف الدراسي</label>
-                    <select id="mStudentGrade" required>
-                        <option value="الصف الأول الثانوي">الصف الأول الثانوي</option>
-                        <option value="الصف الثاني الثانوي">الصف الثاني الثانوي</option>
-                        <option value="الصف الثالث الثانوي">الصف الثالث الثانوي</option>
-                    </select>
-                </div>
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label>هاتف الطالب</label>
-                        <input type="tel" id="mStudentPhone" required>
-                    </div>
-                    <div class="form-group">
-                        <label>هاتف ولي الأمر</label>
-                        <input type="tel" id="mStudentParent" required>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>كلمة المرور الافتراضية</label>
-                    <input type="text" id="mStudentPass" value="123456" required>
-                </div>
-                <button type="submit" class="btn btn-block">إضافة الطالب للسجل</button>
-            </form>
         </div>
-    </div>
+        <div class="nav-actions">
+            <button class="nav-btn nav-btn-outline active" onclick="showView('student-auth')">بوابة الطالب</button>
+            <button class="nav-btn nav-btn-teacher" onclick="showView('teacher-login')">لوحة تحكم المدرس</button>
+        </div>
+    </nav>
 
-    <!-- نافذة دخول المعلم -->
-    <div class="modal-overlay" id="teacherLoginModal">
-        <div class="modal-box" style="max-width: 420px;">
-            <div class="card-header">
-                <h3>دخول إدارة المنصة</h3>
-                <button class="btn btn-danger btn-sm" onclick="closeModal('teacherLoginModal')">إغلاق</button>
+    <section class="hero">
+        <h2>أهلاً بك في منصة الطارق التعليمية</h2>
+        <p>طريقك للتفوق والدرجة النهائية في المرحلة الثانوية مع الأستاذ محمد أشرف — جميع الحصص والمراجعات متاحة أونلاين في أي وقت.</p>
+    </section>
+
+    <div class="container">
+        <div id="global-alert" class="alert"></div>
+
+        <!-- بوابة الطالب -->
+        <div id="student-auth" class="view-section active">
+            <div class="card" style="max-width: 550px; margin: 0 auto;">
+                <div class="auth-tabs">
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة الطارق للتعليم الثانوي — أ/ محمد أشرف</title>
+    <link href="https://googleapis.com" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1d4ed8;
+            --primary-dark: #1e3a8a;
+            --secondary: #0f172a;
+            --accent: #f59e0b;
+            --bg: #f1f5f9;
+            --card: #ffffff;
+            --text: #1e293b;
+            --muted: #64748b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+        }
+
+        * { box-sizing: border-box; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; }
+        body { background-color: var(--bg); color: var(--text); line-height: 1.6; }
+
+        .navbar {
+            background: #ffffff;
+            padding: 0.9rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .brand { display: flex; align-items: center; gap: 12px; }
+        .brand-logo {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            font-weight: 900;
+        }
+        .brand-text h1 { font-size: 1.25rem; font-weight: 800; color: var(--primary-dark); line-height: 1.2; }
+        .brand-text span { font-size: 0.85rem; color: var(--muted); font-weight: 600; }
+
+        .nav-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+        .nav-btn {
+            padding: 0.55rem 1.1rem;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.2s;
+        }
+        .nav-btn-outline { border-color: var(--primary); color: var(--primary); background: transparent; }
+        .nav-btn-outline:hover, .nav-btn-outline.active { background: var(--primary); color: white; }
+        .nav-btn-teacher { background: var(--secondary); color: white; }
+        .nav-btn-teacher:hover { background: #334155; }
+
+        .hero {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            color: white;
+            padding: 2.5rem 1.5rem;
+            text-align: center;
+            border-bottom: 4px solid var(--accent);
+        }
+        .hero h2 { font-size: 2rem; font-weight: 900; margin-bottom: 0.4rem; }
+        .hero p { color: #e2e8f0; font-size: 1.05rem; max-width: 650px; margin: 0 auto; }
+
+        .container { max-width: 1100px; margin: 2rem auto; padding: 0 1rem; }
+        .view-section { display: none; animation: fadeIn 0.3s ease; }
+        .view-section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+        .card {
+            background: var(--card);
+            padding: 2rem;
+            border-radius: 14px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            margin-bottom: 1.5rem;
+            border: 1px solid #e2e8f0;
+        }
+        .card-header { margin-bottom: 1.5rem; border-bottom: 2px solid #f1f5f9; padding-bottom: 0.8rem; }
+        .card-header h3 { color: var(--primary-dark); font-size: 1.35rem; font-weight: 800; }
+        .card-header p { color: var(--muted); font-size: 0.9rem; }
+
+        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; }
+        .form-group { margin-bottom: 1rem; position: relative; }
+        label { display: block; font-weight: 700; margin-bottom: 0.35rem; font-size: 0.9rem; color: var(--secondary); }
+        input, select, textarea {
+            width: 100%;
+            padding: 0.75rem 0.9rem;
+            border: 1.5px solid #cbd5e1;
+            border-radius: 9px;
+            font-size: 0.95rem;
+            outline: none;
+            transition: 0.2s;
+            background: #f8fafc;
+        }
+        input:focus, select:focus, textarea:focus { border-color: var(--primary); background: #ffffff; }
+
+        .pass-wrapper { position: relative; }
+        .toggle-pass {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            color: var(--muted);
+        }
+
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 9px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .btn:hover { background: var(--primary-dark); }
+        .btn-block { width: 100%; }
+        .btn-success { background: var(--success); }
+        .btn-success:hover { background: #059669; }
+        .btn-danger { background: var(--danger); }
+        .btn-danger:hover { background: #dc2626; }
+        .btn-sm { padding: 0.4rem 0.8rem; font-size: 0.82rem; }
+
+        .auth-tabs { display: flex; gap: 10px; margin-bottom: 1.5rem; background: #f1f5f9; padding: 6px; border-radius: 10px; }
+        .auth-tab {
+            flex: 1;
+            padding: 0.7rem;
+            text-align: center;
+            border-radius: 8px;
+            font-weight: 800;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            color: var(--muted);
+        }
+        .auth-tab.active { background: white; color: var(--primary); box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
+
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+        .stat-card {
+            background: #f8fafc;
+            padding: 1.2rem;
+            border-radius: 12px;
+            border-right: 5px solid var(--primary);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
+        .stat-card h4 { font-size: 1.9rem; font-weight: 900; color: var(--primary-dark); }
+        .stat-card span { font-size: 0.9rem; font-weight: 700; color: var(--muted); }
+
+        .table-wrap { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+        th, td { padding: 0.85rem; text-align: right; border-bottom: 1px solid #e2e8f0; white-space: nowrap; }
+        th { background: #f1f5f9; color: var(--secondary); font-weight: 800; }
+        .badge { padding: 0.25rem 0.7rem; border-radius: 20px; font-size: 0.78rem; font-weight: 800; }
+        .badge-pending { background: #fef3c7; color: #b45309; }
+        .badge-approved { background: #d1fae5; color: #065f46; }
+
+        .courses-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.2rem; }
+        .course-box {
+            border: 1.5px solid #e2e8f0;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.2s;
+        }
+        .course-box:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
+        .course-header { background: var(--primary-dark); color: white; padding: 1rem; }
+        .course-header h4 { font-size: 1.1rem; font-weight: 800; }
+        .course-grade { font-size: 0.8rem; background: var(--accent); color: #0f172a; padding: 2px 8px; border-radius: 6px; font-weight: 800; display: inline-block; margin-top: 5px; }
+        .course-body { padding: 1rem; color: var(--text); font-size: 0.92rem; flex-grow: 1; }
+        .course-footer { padding: 1rem; border-top: 1px solid #f1f5f9; background: #f8fafc; }
+
+        .alert { padding: 1rem; border-radius: 10px; margin-bottom: 1rem; font-weight: 700; display: none; }
+        .alert-info { background: #dbeafe; color: #1e40af; border: 1px solid #93c5fd; }
+        .alert-danger { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
+        .alert-success { background: #d1fae5; color: #065f46; border: 1px solid #6ee7b7; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="brand">
+            <div class="brand-logo">ط</div>
+            <div class="brand-text">
+                <h1>منصة الطارق للتعليم الثانوي</h1>
+                <span>إشراف أ/ محمد أشرف</span>
             </div>
-            <form onsubmit="verifyTeacherLogin(event)">
-                <div class="form-group">
-                    <label>كود الدخول السري للمعلم</label>
-                    <input type="password" id="teacherSecretCode" placeholder="أدخل كود الإدارة" required>
-                </div>
-                <button type="submit" class="btn btn-block">فتح لوحة التحكم</button>
-                <p style="margin-top:0.8rem; font-size:0.85rem; color:var(--muted); text-align:center;">
-                    كود الدخول الافتراضي للتجربة: <strong>admin123</strong>
-                </p>
-            </form>
         </div>
-    </div>
+        <div class="nav-actions">
+            <button class="nav-btn nav-btn-outline active" onclick="showView('student-auth')">بوابة الطالب</button>
+            <button class="nav-btn nav-btn-teacher" onclick="showView('teacher-login')">لوحة تحكم المدرس</button>
+        </div>
+    </nav>
 
-    <!-- إشعار منبثق -->
-    <div id="toastBox" class="toast"></div>
+    <section class="hero">
+        <h2>أهلاً بك في منصة الطارق التعليمية</h2>
+        <p>طريقك للتفوق والدرجة النهائية في المرحلة الثانوية مع الأستاذ محمد أشرف — جميع الحصص والمراجعات متاحة أونلاين في أي وقت.</p>
+    </section>
 
-    <script>
-        // البيانات الافتراضية وتخزينها في LocalStorage لتظل محفوظة عند التحديث
-        const STORAGE_KEYS = {
-            STUDENTS: 'altarek_students_v1',
-            COURSES: 'altarek_courses_v1',
-            SUBS: 'altarek_subs_v1',
-            CURRENT_USER: 'altarek_current_user_v1'
-        };
+    <div class="container">
+        <div id="global-alert" class="alert"></div>
 
-        const defaultCourses = [
-            {
-                id: 'c1',
-                title: 'كورس التأسيس الشامل والباب الأول',
-                grade: 'الصف الثالث الثانوي',
-                price: 200,
-                desc: 'شرح تفصيلي لجميع أفكار الباب الأول مع حل 300 سؤال من الكتب الخارجية وامتحانات الأعوام السابقة.',
-                lessons: ['المحاضرة 1: الأساسيات والمفاهيم', 'المحاضرة 2: المسائل التطبيقية', 'المحاضرة 3: أفكار المستويات العليا', 'الاختبار التفاعلي الشامل']
-            },
-            {
-                id: 'c2',
-                title: 'الشهر الأول — شرح وتدريبات مكثفة',
-                grade: 'الصف الثاني الثانوي',
-                price: 150,
-                desc: 'متابعة أسبوعية منتظمة تشمل 4 محاضرات شرح وواجب إلكتروني واختبار تقييمي في نهاية الشهر.',
-                lessons: ['الدرس الأول: مدخل المنهج', 'الدرس الثاني: القوانين الأساسية', 'الدرس الثالث: حل نماذج تدريبية', 'امتحان تقييم الشهر']
-            },
-            {
-                id: 'c3',
-                title: 'بداية التفوق — المنهج الجديد',
-                grade: 'الصف الأول الثانوي',
-                price: 120,
-                desc: 'تبسيط كامل للمنهج بأسلوب شيق يناسب النظام الحديث مع تدريبات مستمرة.',
-                lessons: ['الدرس التمهيدي', 'الدرس الأول: المفاهيم الرئيسية', 'الدرس الثاني: تطبيقات عملية', 'اختبار نهاية الوحدة']
-            }
-        ];
-
-        const defaultStudents = [
-            {
-                id: 'st1',
-                name: 'أحمد محمود علي',
-                grade: 'الصف الثالث الثانوي',
-                phone: '01000000001',
-                parentPhone: '01111111111',
-                pass: '123456'
-            },
-            {
-                id: 'st2',
-                name: 'سارة إبراهيم حسن',
-                grade: 'الصف الثاني الثانوي',
-                phone: '01000000002',
-                parentPhone: '01222222222',
-                pass: '123456'
-            }
-        ];
-
-        const defaultSubs = [
-            {
-                id: 'sub1',
-                studentId: 'st1',
-                courseId: 'c1',
-                date: '2026-11-20',
-                status: 'approved'
-            },
-            {
-                id: 'sub2',
-                studentId: 'st2',
-                courseId: 'c2',
-                date: '2026-11-25',
-                status: 'pending'
-            }
-        ];
-
-        function loadData(key, fallback) {
-            const raw = localStorage.getItem(key);
-            if (!raw) {
-                localStorage.setItem(key, JSON.stringify(fallback));
-                return fallback;
-            }
-            return JSON.parse(raw);
+        <!-- بوابة الطالب -->
+        <div id="student-auth" class="view-section active">
+            <div class="card" style="max-width: 550px; margin: 0 auto;">
+                <div class="auth-tabs">
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة الطارق للتعليم الثانوي — أ/ محمد أشرف</title>
+    <link href="https://googleapis.com" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1d4ed8;
+            --primary-dark: #1e3a8a;
+            --secondary: #0f172a;
+            --accent: #f59e0b;
+            --bg: #f1f5f9;
+            --card: #ffffff;
+            --text: #1e293b;
+            --muted: #64748b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
         }
 
-        function saveData(key, data) {
-            localStorage.setItem(key, JSON.stringify(data));
+        * { box-sizing: border-box; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; }
+        body { background-color: var(--bg); color: var(--text); line-height: 1.6; }
+
+        .navbar {
+            background: #ffffff;
+            padding: 0.9rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .brand { display: flex; align-items: center; gap: 12px; }
+        .brand-logo {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            font-weight: 900;
+        }
+        .brand-text h1 { font-size: 1.25rem; font-weight: 800; color: var(--primary-dark); line-height: 1.2; }
+        .brand-text span { font-size: 0.85rem; color: var(--muted); font-weight: 600; }
+
+        .nav-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+        .nav-btn {
+            padding: 0.55rem 1.1rem;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.2s;
+        }
+        .nav-btn-outline { border-color: var(--primary); color: var(--primary); background: transparent; }
+        .nav-btn-outline:hover, .nav-btn-outline.active { background: var(--primary); color: white; }
+        .nav-btn-teacher { background: var(--secondary); color: white; }
+        .nav-btn-teacher:hover { background: #334155; }
+
+        .hero {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            color: white;
+            padding: 2.5rem 1.5rem;
+            text-align: center;
+            border-bottom: 4px solid var(--accent);
+        }
+        .hero h2 { font-size: 2rem; font-weight: 900; margin-bottom: 0.4rem; }
+        .hero p { color: #e2e8f0; font-size: 1.05rem; max-width: 650px; margin: 0 auto; }
+
+        .container { max-width: 1100px; margin: 2rem auto; padding: 0 1rem; }
+        .view-section { display: none; animation: fadeIn 0.3s ease; }
+        .view-section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+        .card {
+            background: var(--card);
+            padding: 2rem;
+            border-radius: 14px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            margin-bottom: 1.5rem;
+            border: 1px solid #e2e8f0;
+        }
+        .card-header { margin-bottom: 1.5rem; border-bottom: 2px solid #f1f5f9; padding-bottom: 0.8rem; }
+        .card-header h3 { color: var(--primary-dark); font-size: 1.35rem; font-weight: 800; }
+        .card-header p { color: var(--muted); font-size: 0.9rem; }
+
+        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; }
+        .form-group { margin-bottom: 1rem; position: relative; }
+        label { display: block; font-weight: 700; margin-bottom: 0.35rem; font-size: 0.9rem; color: var(--secondary); }
+        input, select, textarea {
+            width: 100%;
+            padding: 0.75rem 0.9rem;
+            border: 1.5px solid #cbd5e1;
+            border-radius: 9px;
+            font-size: 0.95rem;
+            outline: none;
+            transition: 0.2s;
+            background: #f8fafc;
+        }
+        input:focus, select:focus, textarea:focus { border-color: var(--primary); background: #ffffff; }
+
+        .pass-wrapper { position: relative; }
+        .toggle-pass {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            color: var(--muted);
         }
 
-        let courses = loadData(STORAGE_KEYS.COURSES, defaultCourses);
-        let students = loadData(STORAGE_KEYS.STUDENTS, defaultStudents);
-        let subscriptions = loadData(STORAGE_KEYS.SUBS, defaultSubs);
-        let currentUser = JSON.parse(localStorage.getItem(STORAGE_KEYS.CURRENT_USER) || 'null');
-
-        // التنقل بين الواجهات الرئيسية
-        function switchView(viewId, btnEl) {
-            document.querySelectorAll('.view-section').forEach(sec => sec.classList.remove('active'));
-            document.getElementById(viewId).classList.add('active');
-
-            if (btnEl) {
-                document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-                btnEl.classList.add('active');
-            }
-
-            if (viewId === 'homeView') renderCourses();
-            if (viewId === 'studentDashView') renderStudentDashboard();
-            if (viewId === 'teacherDashView') renderTeacherDashboard();
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 9px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
+        .btn:hover { background: var(--primary-dark); }
+        .btn-block { width: 100%; }
+        .btn-success { background: var(--success); }
+        .btn-success:hover { background: #059669; }
+        .btn-danger { background: var(--danger); }
+        .btn-danger:hover { background: #dc2626; }
+        .btn-sm { padding: 0.4rem 0.8rem; font-size: 0.82rem; }
 
-        // تحديث شريط التنقل حسب حالة المستخدم
-        function updateNavbarState() {
-            const authBtn = document.getElementById('navAuthBtn');
-            const stDashBtn = document.getElementById('navStudentDashBtn');
-            const logoutBtn = document.getElementById('navLogoutBtn');
-
-            if (currentUser && currentUser.role === 'student') {
-                authBtn.style.display = 'none';
-                stDashBtn.style.display = 'inline-block';
-                logoutBtn.style.display = 'inline-block';
-            } else if (currentUser && currentUser.role === 'teacher') {
-                authBtn.style.display = 'none';
-                stDashBtn.style.display = 'none';
-                logoutBtn.style.display = 'inline-block';
-            } else {
-                authBtn.style.display = 'inline-block';
-                stDashBtn.style.display = 'none';
-                logoutBtn.style.display = 'none';
-            }
+        .auth-tabs { display: flex; gap: 10px; margin-bottom: 1.5rem; background: #f1f5f9; padding: 6px; border-radius: 10px; }
+        .auth-tab {
+            flex: 1;
+            padding: 0.7rem;
+            text-align: center;
+            border-radius: 8px;
+            font-weight: 800;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            color: var(--muted);
         }
+        .auth-tab.active { background: white; color: var(--primary); box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
 
-        function showToast(msg) {
-            const toast = document.getElementById('toastBox');
-            toast.textContent = msg;
-            toast.style.display = 'block';
-            setTimeout(() => { toast.style.display = 'none'; }, 3200);
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+        .stat-card {
+            background: #f8fafc;
+            padding: 1.2rem;
+            border-radius: 12px;
+            border-right: 5px solid var(--primary);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
         }
+        .stat-card h4 { font-size: 1.9rem; font-weight: 900; color: var(--primary-dark); }
+        .stat-card span { font-size: 0.9rem; font-weight: 700; color: var(--muted); }
 
-        function togglePassword(inputId) {
-            const inp = document.getElementById(inputId);
-            inp.type = inp.type === 'password' ? 'text' : 'password';
+        .table-wrap { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+        th, td { padding: 0.85rem; text-align: right; border-bottom: 1px solid #e2e8f0; white-space: nowrap; }
+        th { background: #f1f5f9; color: var(--secondary); font-weight: 800; }
+        .badge { padding: 0.25rem 0.7rem; border-radius: 20px; font-size: 0.78rem; font-weight: 800; }
+        .badge-pending { background: #fef3c7; color: #b45309; }
+        .badge-approved { background: #d1fae5; color: #065f46; }
+
+        .courses-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.2rem; }
+        .course-box {
+            border: 1.5px solid #e2e8f0;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.2s;
         }
+        .course-box:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
+        .course-header { background: var(--primary-dark); color: white; padding: 1rem; }
+        .course-header h4 { font-size: 1.1rem; font-weight: 800; }
+        .course-grade { font-size: 0.8rem; background: var(--accent); color: #0f172a; padding: 2px 8px; border-radius: 6px; font-weight: 800; display: inline-block; margin-top: 5px; }
+        .course-body { padding: 1rem; color: var(--text); font-size: 0.92rem; flex-grow: 1; }
+        .course-footer { padding: 1rem; border-top: 1px solid #f1f5f9; background: #f8fafc; }
 
-        // تبديل تبويبات الدخول والتسجيل
-        function toggleAuthTab(tab) {
-            document.getElementById('loginForm').style.display = tab === 'login' ? 'block' : 'none';
-            document.getElementById('registerForm').style.display = tab === 'register' ? 'block' : 'none';
-            document.getElementById('tabLoginBtn').classList.toggle('active', tab === 'login');
-            document.getElementById('tabRegisterBtn').classList.toggle('active', tab === 'register');
-        }
+        .alert { padding: 1rem; border-radius: 10px; margin-bottom: 1rem; font-weight: 700; display: none; }
+        .alert-info { background: #dbeafe; color: #1e40af; border: 1px solid #93c5fd; }
+        .alert-danger { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
+        .alert-success { background: #d1fae5; color: #065f46; border: 1px solid #6ee7b7; }
+    </style>
+</head>
+<body>
 
-        // تسجيل دخول طالب
-        function handleStudentLogin(e) {
-            e.preventDefault();
-            const phone = document.getElementById('loginPhone').value.trim();
-            const pass = document.getElementById('loginPass').value.trim();
+    <nav class="navbar">
+        <div class="brand">
+            <div class="brand-logo">ط</div>
+            <div class="brand-text">
+                <h1>منصة الطارق للتعليم الثانوي</h1>
+                <span>إشراف أ/ محمد أشرف</span>
+            </div>
+        </div>
+        <div class="nav-actions">
+            <button class="nav-btn nav-btn-outline active" onclick="showView('student-auth')">بوابة الطالب</button>
+            <button class="nav-btn nav-btn-teacher" onclick="showView('teacher-login')">لوحة تحكم المدرس</button>
+        </div>
+    </nav>
 
-            const student = students.find(s => s.phone === phone && s.pass === pass);
-            if (!student) {
-                showToast('بيانات الدخول غير صحيحة، تأكد من الهاتف وكلمة المرور');
-                return;
-            }
+    <section class="hero">
+        <h2>أهلاً بك في منصة الطارق التعليمية</h2>
+        <p>طريقك للتفوق والدرجة النهائية في المرحلة الثانوية مع الأستاذ محمد أشرف — جميع الحصص والمراجعات متاحة أونلاين في أي وقت.</p>
+    </section>
 
-            currentUser = { role: 'student', data: student };
-            localStorage.setItem(STORAGE_KEYS.CURRENT_USER, JSON.stringify(currentUser));
-            updateNavbarState();
-            showToast('أهلاً بك يا ' + student.name);
-            switchView('studentDashView', document.getElementById('navStudentDashBtn'));
-        }
+    <div class="container">
+        <div id="global-alert" class="alert"></div>
 
-        // إنشاء حساب طالب جديد
-        function handleStudentRegister(e) {
-            e.preventDefault();
-            const name = document.getElementById('regName').value.trim();
-            const grade = document.getElementById('regGrade').value;
-            const phone = document.getElementById('regPhone').value.trim();
-            const parentPhone = document.getElementById('regParentPhone').value.trim();
-            const pass = document.getElementById('regPass').value.trim();
-
-            if (students.some(s => s.phone === phone)) {
-                showToast('رقم الهاتف مسجل بالفعل على المنصة!');
-                return;
-            }
-
-            const newStudent = {
-                id: 'st_' + Date.now(),
-                name,
-                grade,
-                phone,
-                parentPhone,
-                pass
-            };
-
-            students.push(newStudent);
-            saveData(STORAGE_KEYS.STUDENTS, students);
-
-            currentUser = { role: 'student', data: newStudent };
-            localStorage.setItem(STORAGE_KEYS.CURRENT_USER, JSON.stringify(currentUser));
-            updateNavbarState();
-            showToast('تم إنشاء حسابك بنجاح!');
-            switchView('studentDashView', document.getElementById('navStudentDashBtn'));
-        }
-
-        function logoutUser() {
-            currentUser = null;
-            localStorage.removeItem(STORAGE_KEYS.CURRENT_USER);
-            updateNavbarState();
-            showToast('تم تسجيل الخروج بنجاح');
-            switchView('homeView', document.querySelector('.nav-btn'));
-        }
-
-        // عرض الكورسات في الصفحة الرئيسية
-        function renderCourses() {
-            const filter = document.getElementById('gradeFilter').value;
-            const container = document.getElementById('coursesContainer');
-            container.innerHTML = '';
-
-            const filtered = filter === 'all' ? courses : courses.filter(c => c.grade === filter);
-
-            if (filtered.length === 0) {
-                container.innerHTML = '<p style="color:var(--muted);">لا توجد كورسات متاحة لهذا الصف حالياً.</p>';
-                return;
-            }
-
-            filtered.forEach(course => {
-                let actionBtn = `<button class="btn btn-sm" onclick="requestSubscription('${course.id}')">طلب اشتراك الآن</button>`;
-
-                if (currentUser && currentUser.role === 'student') {
-                    const existingSub = subscriptions.find(s => s.studentId === currentUser.data.id && s.courseId === course.id);
-                    if (existingSub) {
-                        if (existingSub.status === 'approved') {
-                            actionBtn = `<button class="btn btn-success btn-sm" onclick="openCourseContent('${course.id}')">دخول المحاضرات</button>`;
-                        } else {
-                            actionBtn = `<span class="badge badge-pending">قيد التفعيل من المعلم</span>`;
-                        }
-                    }
-                }
-
-                container.innerHTML += `
-                    <div class="course-box">
-                        <div>
-                            <div class="course-banner">
-                                <span style="font-weight:800;">منصة الطارق</span>
-                                <span class="course-grade-tag">${course.grade}</span>
-                            </div>
-                            <div class="course-body">
-                                <h4>${course.title}</h4>
-                                <p>${course.desc}</p>
-                                <div class="course-meta">
-                                    <span>عدد المحاضرات: ${course.lessons.length}</span>
-                                    <span>التكلفة: ${course.price} ج.م</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="course-footer">
-                            <button class="btn btn-outline btn-sm" onclick="previewCourse('${course.id}')">خطة الدروس</button>
-                            ${actionBtn}
-                        </div>
-                    </div>
-                `;
-            });
-        }
-
-        // طلب اشتراك في كورس
-        function requestSubscription(courseId) {
-            if (!currentUser || currentUser.role !== 'student') {
-                showToast('يرجى تسجيل الدخول كطالب أولاً للاشتراك في الكورس');
-                switchView('authView', document.getElementById('navAuthBtn'));
-                return;
-            }
-
-            const exists = subscriptions.find(s => s.studentId === currentUser.data.id && s.courseId === courseId);
-            if (exists) {
-                showToast('لديك طلب اشتراك مسجل بالفعل لهذا الكورس');
-                return;
-            }
-
-            const newSub = {
-                id: 'sub_' + Date.now(),
-                studentId: currentUser.data.id,
-                courseId: courseId,
-                date: new Date().toISOString().split('T')[0],
-                status: 'pending'
-            };
-
-            subscriptions.push(newSub);
-            saveData(STORAGE_KEYS.SUBS, subscriptions);
-            showToast('تم إرسال طلب الاشتراك! في انتظار تفعيل الأستاذ محمد أشرف');
-            renderCourses();
-        }
-
-        // عرض خطة الدروس أو محتوى الكورس
-        function previewCourse(courseId) {
-            const course = courses.find(c => c.id === courseId);
-            if (!course) return;
-            document.getElementById('modalCourseTitle').textContent = course.title;
-            document.getElementById('modalCourseDesc').textContent = course.desc;
-
-            const list = document.getElementById('modalLessonsList');
-            list.innerHTML = course.lessons.map((lesson, idx) => `
-                <div class="lesson-item">
-                    <span><strong>${idx + 1}.</strong> ${lesson}</span>
-                    <span class="badge badge-sub">محتوى الكورس</span>
-                </div>
-            `).join('');
-
-            document.getElementById('courseContentModal').classList.add('active');
-        }
-
-        function openCourseContent(courseId) {
-            const course = courses.find(c => c.id === courseId);
-            if (!course) return;
-            document.getElementById('modalCourseTitle').textContent = 'محاضرات: ' + course.title;
-            document.getElementById('modalCourseDesc').textContent = 'اشتراكك مفعل — يمكنك مشاهدة الدروس وحل الاختبارات الآن.';
-
-            const list = document.getElementById('modalLessonsList');
-            list.innerHTML = course.lessons.map((lesson, idx) => `
-                <div class="lesson-item">
-                    <span><strong>المحاضرة ${idx + 1}:</strong> ${lesson}</span>
-                    <button class="btn btn-success btn-sm" onclick="showToast('جاري تشغيل: ${lesson}')">تشغيل الدرس</button>
-                </div>
-            `).join('');
-
-            document.getElementById('courseContentModal').classList.add('active');
-        }
-
-        function closeModal(id) {
-            document.getElementById(id).classList.remove('active');
-        }
-
-        // لوحة الطالب
-        function renderStudentDashboard() {
-            if (!currentUser || currentUser.role !== 'student') return;
-            const st = currentUser.data;
-
-            document.getElementById('studentWelcomeTitle').textContent = 'أهلاً بك، ' + st.name;
-            document.getElementById('studentInfoSub').textContent = `${st.grade} | هاتف الطالب: ${st.phone}`;
-
-            const mySubs = subscriptions.filter(s => s.studentId === st.id);
-            const approved = mySubs.filter(s => s.status === 'approved').length;
-            const pending = mySubs.filter(s => s.status === 'pending').length;
-
-            document.getElementById('stSubCount').textContent = mySubs.length;
-            document.getElementById('stApprovedCount').textContent = approved;
-            document.getElementById('stPendingCount').textContent = pending;
-
-            const tbody = document.getElementById('studentSubsTable');
-            if (mySubs.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; color:var(--muted);">لم تشترك في أي كورس حتى الآن.</td></tr>';
-                return;
-            }
-
-            tbody.innerHTML = mySubs.map(sub => {
-                const course = courses.find(c => c.id === sub.courseId) || { title: 'كورس محذوف', grade: '-' };
-                const statusBadge = sub.status === 'approved'
-                    ? '<span class="badge badge-approved">مفعل</span>'
-                    : '<span class="badge badge-pending">قيد المراجعة</span>';
-                const action = sub.status === 'approved'
-                    ? `<button class="btn btn-success btn-sm" onclick="openCourseContent('${course.id}')">فتح الكورس</button>`
-                    : `<span style="font-size:0.8rem; color:var(--muted);">بانتظار التفعيل</span>`;
-
-                return `
-                    <tr>
-                        <td><strong>${course.title}</strong></td>
-                        <td>${course.grade}</td>
-                        <td>${sub.date}</td>
-                        <td>${statusBadge}</td>
-                        <td>${action}</td>
-                    </tr>
-                `;
-            }).join('');
-        }
-
-        // لوحة المعلم
-        function openTeacherLogin() {
-            if (currentUser && currentUser.role === 'teacher') {
-                switchView('teacherDashView', document.getElementById('navTeacherBtn'));
-                return;
-            }
-            document.getElementById('teacherLoginModal').classList.add('active');
-        }
-
-        function verifyTeacherLogin(e) {
-            e.preventDefault();
-            const code = document.getElementById('teacherSecretCode').value.trim();
-            if (code === 'admin123') {
-                currentUser = { role: 'teacher', name: 'أ/ محمد أشرف' };
-                localStorage.setItem(STORAGE_KEYS.CURRENT_USER, JSON.stringify(currentUser));
-                closeModal('teacherLoginModal');
-                updateNavbarState();
-                showToast('تم الدخول إلى لوحة تحكم المعلم');
-                switchView('teacherDashView', document.getElementById('navTeacherBtn'));
-            } else {
-                showToast('كود الإدارة غير صحيح!');
-            }
-        }
-
-        function switchTeacherTab(tabId, btnEl) {
-            document.querySelectorAll('.teacher-tab-panel').forEach(p => p.style.display = 'none');
-            document.getElementById(tabId).style.display = 'block';
-            btnEl.parentElement.querySelectorAll('.auth-tab').forEach(b => b.classList.remove('active'));
-            btnEl.classList.add('active');
-        }
-
-        function renderTeacherDashboard() {
-            document.getElementById('tTotalStudents').textContent = students.length;
-            document.getElementById('tPendingSubs').textContent = subscriptions.filter(s => s.status === 'pending').length;
-            document.getElementById('tActiveSubs').textContent = subscriptions.filter(s => s.status === 'approved').length;
-            document.getElementById('tTotalCourses').textContent = courses.length;
-
-            // 1. جدول الاشتراكات
-            const subSearch = (document.getElementById('subSearchInput').value || '').toLowerCase();
-            const subFilter = document.getElementById('subStatusFilter').value;
-            const subsTbody = document.getElementById('teacherSubsTable');
-
-            const filteredSubs = subscriptions.filter(sub => {
-                const st = students.find(s => s.id === sub.studentId);
-                const cr = courses.find(c => c.id === sub.courseId);
-                if (!st || !cr) return false;
-                const matchText = st.name.toLowerCase().includes(subSearch) || cr.title.toLowerCase().includes(subSearch) || st.phone.includes(subSearch);
-                const matchStatus = subFilter === 'all' || sub.status === subFilter;
-                return matchText && matchStatus;
-            });
-
-            subsTbody.innerHTML = filteredSubs.length === 0
-                ? '<tr><td colspan="6" style="text-align:center;">لا توجد سجلات مطابقة</td></tr>'
-                : filteredSubs.map(sub => {
-                    const st = students.find(s => s.id === sub.studentId);
-                    const cr = courses.find(c => c.id === sub.courseId);
-                    const badge = sub.status === 'approved'
-                        ? '<span class="badge badge-approved">مفعل</span>'
-                        : '<span class="badge badge-pending">معلق</span>';
-                    const toggleBtn = sub.status === 'pending'
-                        ? `<button class="btn btn-success btn-sm" onclick="toggleSubStatus('${sub.id}', 'approved')">تفعيل</button>`
-                        : `<button class="btn btn-warning btn-sm" onclick="toggleSubStatus('${sub.id}', 'pending')">إيقاف</button>`;
-
-                    return `
-                        <tr>
-                            <td><strong>${st.name}</strong></td>
-                            <td>${st.phone}</td>
-                            <td>${cr.title}</td>
-                            <td>${sub.date}</td>
-                            <td>${badge}</td>
-                            <td>
-                                ${toggleBtn}
-                                <button class="btn btn-danger btn-sm" onclick="deleteSub('${sub.id}')">حذف</button>
-                            </td>
-                        </tr>
-                    `;
-                }).join('');
-
-            // 2. جدول الطلاب
-            const stSearch = (document.getElementById('studentSearchInput').value || '').toLowerCase();
-            const stGrade = document.getElementById('studentGradeFilter').value;
-            const stTbody = document.getElementById('teacherStudentsTable');
-
-            const filteredStudents = students.filter(st => {
-                const matchText = st.name.toLowerCase().includes(stSearch) || st.phone.includes(stSearch);
-                const matchGrade = stGrade === 'all' || st.grade === stGrade;
-                return matchText && matchGrade;
-            });
-
-            stTbody.innerHTML = filteredStudents.map((st, index) => {
-                const count = subscriptions.filter(s => s.studentId === st.id && s.status === 'approved').length;
-                return `
-                    <tr>
-                        <td>${index + 1}</td>
-                        <td><strong>${st.name}</strong></td>
-                        <td>${st.grade}</td>
-                        <td>${st.phone}</td>
-                        <td>${st.parentPhone}</td>
-                        <td><span class="badge badge-sub">${count} كورس</span></td>
-                        <td>
-                            <button class="btn btn-danger btn-sm" onclick="deleteStudent('${st.id}')">حذف السجل</button>
-                        </td>
-                    </tr>
-                `;
-            }).join('');
-
-            // 3. جدول الكورسات
-            const crTbody = document.getElementById('teacherCoursesTable');
-            crTbody.innerHTML = courses.map(cr => `
-                <tr>
-                    <td><strong>${cr.title}</strong></td>
-                    <td>${cr.grade}</td>
-                    <td>${cr.lessons.length} محاضرات</td>
-                    <td>${cr.price} ج.م</td>
-                    <td>
-                        <button class="btn btn-danger btn-sm" onclick="deleteCourse('${cr.id}')">حذف الكورس</button>
-                    </td>
-                </tr>
-            `).join('');
-        }
-
-        function toggleSubStatus(subId, newStatus) {
-            const sub = subscriptions.find(s => s.id === subId);
-            if (sub) {
-                sub.status = newStatus;
-                saveData(STORAGE_KEYS.SUBS, subscriptions);
-                showToast(newStatus === 'approved' ? 'تم تفعيل اشتراك الطالب بنجاح' : 'تم إيقاف الاشتراك مؤقتاً');
-                renderTeacherDashboard();
-            }
-        }
-
-        function deleteSub(subId) {
-            subscriptions = subscriptions.filter(s => s.id !== subId);
-            saveData(STORAGE_KEYS.SUBS, subscriptions);
-            showToast('تم حذف سجل الاشتراك');
-            renderTeacherDashboard();
-        }
-
-        function deleteStudent(studentId) {
-            students = students.filter(s => s.id !== studentId);
-            subscriptions = subscriptions.filter(s => s.studentId !== studentId);
-            saveData(STORAGE_KEYS.STUDENTS, students);
-            saveData(STORAGE_KEYS.SUBS, subscriptions);
-            showToast('تم حذف سجل الطالب وجميع اشتراكاته');
-            renderTeacherDashboard();
-        }
-
-        function deleteCourse(courseId) {
-            courses = courses.filter(c => c.id !== courseId);
-            saveData(STORAGE_KEYS.COURSES, courses);
-            showToast('تم حذف الكورس من المنصة');
-            renderTeacherDashboard();
-        }
-
-        function openAddCourseModal() {
-            document.getElementById('addCourseModal').classList.add('active');
-        }
-
-        function handleAddCourse(e) {
-            e.preventDefault();
-            const title = document.getElementById('newCourseTitle').value.trim();
-            const grade = document.getElementById('newCourseGrade').value;
-            const price = Number(document.getElementById('newCoursePrice').value);
-            const desc = document.getElementById('newCourseDesc').value.trim();
-            const lessonsRaw = document.getElementById('newCourseLessons').value;
-            const lessons = lessonsRaw.split(',').map(l => l.trim()).filter(Boolean);
-
-            courses.push({
-                id: 'c_' + Date.now(),
-                title,
-                grade,
-                price,
-                desc,
-                lessons: lessons.length ? lessons : ['المحاضرة الأولى']
-            });
-
-            saveData(STORAGE_KEYS.COURSES, courses);
-            closeModal('addCourseModal');
-            e.target.reset();
-            showToast('تم نشر الكورس الجديد بنجاح');
-            renderTeacherDashboard();
-        }
-
-        function openAddStudentModal() {
-            document.getElementById('addStudentModal').classList.add('active');
-        }
-
-        function handleManualAddStudent(e) {
-            e.preventDefault();
-            const name = document.getElementById('mStudentName').value.trim();
-            const grade = document.getElementById('mStudentGrade').value;
-            const phone = document.getElementById('mStudentPhone').value.trim();
-            const parentPhone = document.getElementById('mStudentParent').value.trim();
-            const pass = document.getElementById('mStudentPass').value.trim();
-
-            if (students.some(s => s.phone === phone)) {
-                showToast('رقم الهاتف مسجل لطالب آخر بالفعل');
-                return;
-            }
-
-            students.push({
-                id: 'st_' + Date.now(),
-                name,
-                grade,
-                phone,
-                parentPhone,
-                pass
-            });
-
-            saveData(STORAGE_KEYS.STUDENTS, students);
-            closeModal('addStudentModal');
-            e.target.reset();
-            showToast('تمت إضافة الطالب إلى السجلات');
-            renderTeacherDashboard();
-        }
-
-        // تصدير السجلات كملف CSV
-        function exportRecordsCSV() {
-            let csv = '\uFEFFاسم الطالب,رقم الهاتف,الصف الدراسي,الكورس,تاريخ الطلب,الحالة\n';
-            subscriptions.forEach(sub => {
-                const st = students.find(s => s.id === sub.studentId);
-                const cr = courses.find(c => c.id === sub.courseId);
-                if (st && cr) {
-                    const statusText = sub.status === 'approved' ? 'مفعل' : 'قيد المراجعة';
-                    csv += `"${st.name}","${st.phone}","${st.grade}","${cr.title}","${sub.date}","${statusText}"\n`;
-                }
-            });
-
-            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'سجلات_منصة_الطارق.csv';
-            a.click();
-            URL.revokeObjectURL(url);
-            showToast('تم تحميل ملف السجلات بنجاح');
-        }
-
-        // التهيئة عند فتح الصفحة
-        updateNavbarState();
-        renderCourses();
-    </script>
-</body>
-</html>
+        <!-- بوابة الطالب -->
+        <div id="student-auth" class="view-section active">
+            <div class="card" style="max-width: 550px; margin: 0 auto;">
+                <div class="auth-tabs">
