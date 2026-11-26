@@ -3,276 +3,228 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة الطارق التفاعلية — أ/ محمد أشرف</title>
+    <title>منصة الطارق للتعليم الثانوي - أ/ محمد أشرف</title>
     <link href="https://googleapis.com" rel="stylesheet">
     <style>
         :root {
-            --primary: #1d4ed8;
+            --primary: #1e3a8a;
             --primary-light: #3b82f6;
-            --primary-dark: #1e3a8a;
             --secondary: #0f172a;
             --accent: #f59e0b;
-            --bg: #f8fafc;
+            --success: #10b981;
+            --danger: #ef4444;
+            --bg: #f1f5f9;
             --card: #ffffff;
             --text: #1e293b;
             --muted: #64748b;
-            --success: #10b981;
-            --danger: #ef4444;
-            --border: #e2e8f0;
         }
-
         * { box-sizing: border-box; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; }
         body { background-color: var(--bg); color: var(--text); line-height: 1.6; }
-
-        /* الهيدر العلوي */
-        .navbar {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 0.85rem 2rem;
+        
+        /* Header & Navbar */
+        header {
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: white;
+            padding: 15px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+            flex-wrap: wrap;
+            gap: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             position: sticky;
             top: 0;
-            z-index: 1000;
-            flex-wrap: wrap;
-            gap: 12px;
+            z-index: 100;
         }
-
-        .brand { display: flex; align-items: center; gap: 12px; }
-        .brand-logo {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        .brand h1 { font-size: 1.4rem; font-weight: 800; }
+        .brand span { font-size: 0.85rem; color: #cbd5e1; display: block; }
+        nav { display: flex; gap: 8px; flex-wrap: wrap; }
+        nav button {
+            background: rgba(255,255,255,0.12);
             color: white;
-            width: 46px;
-            height: 46px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            font-weight: 900;
-            box-shadow: 0 4px 12px rgba(29, 78, 216, 0.3);
-        }
-
-        .brand-text h1 { font-size: 1.25rem; font-weight: 800; color: var(--primary-dark); line-height: 1.2; }
-        .brand-text span { font-size: 0.85rem; color: var(--muted); font-weight: 700; }
-
-        .nav-actions { display: flex; gap: 10px; flex-wrap: wrap; }
-        .nav-btn {
-            padding: 0.55rem 1.2rem;
-            border-radius: 10px;
-            font-weight: 700;
-            font-size: 0.9rem;
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 8px 15px;
+            border-radius: 8px;
             cursor: pointer;
-            border: 2px solid transparent;
-            transition: all 0.2s ease;
+            font-weight: 600;
+            transition: 0.2s;
         }
+        nav button:hover, nav button.active { background: var(--accent); color: var(--secondary); border-color: var(--accent); }
 
-        .nav-btn-outline { border-color: var(--primary); color: var(--primary); background: transparent; }
-        .nav-btn-outline:hover, .nav-btn-outline.active { background: var(--primary); color: white; }
-        .nav-btn-teacher { background: var(--secondary); color: white; }
-        .nav-btn-teacher:hover { background: #334155; }
-
-        /* البانر الترحيبي */
-        .hero {
-            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #1d4ed8 100%);
-            color: white;
-            padding: 3rem 1.5rem;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero h2 { font-size: 2.2rem; font-weight: 900; margin-bottom: 0.5rem; }
-        .hero p { color: #cbd5e1; font-size: 1.05rem; max-width: 680px; margin: 0 auto; }
-
-        /* شريط التنبيهات العاجلة */
-        .announcement-bar {
-            background: linear-gradient(90deg, #f59e0b, #d97706);
-            color: #0f172a;
-            padding: 0.75rem 1.5rem;
-            text-align: center;
-            font-weight: 800;
-            font-size: 0.95rem;
-            display: none;
-            box-shadow: 0 2px 10px rgba(245, 158, 11, 0.2);
-        }
-
-        /* الحاوية والبطاقات */
-        .container { max-width: 1150px; margin: 2rem auto; padding: 0 1rem; }
-        .view-section { display: none; animation: fadeIn 0.3s ease; }
-        .view-section.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        /* Container & Cards */
+        .container { max-width: 1100px; margin: 25px auto; padding: 0 15px; }
+        .section { display: none; animation: fadeIn 0.3s ease; }
+        .section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
         .card {
             background: var(--card);
-            padding: 2rem;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
-            margin-bottom: 1.5rem;
-            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+            border: 1px solid #e2e8f0;
+        }
+        .card h2 { color: var(--primary); margin-bottom: 8px; font-size: 1.35rem; }
+        .card p.subtitle { color: var(--muted); margin-bottom: 20px; font-size: 0.95rem; }
+
+        /* Choice Switcher on Home */
+        .auth-switcher {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+        .choice-btn {
+            padding: 12px 26px;
+            border-radius: 10px;
+            border: 2px solid var(--primary);
+            background: white;
+            color: var(--primary);
+            font-weight: 800;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .choice-btn.active, .choice-btn:hover {
+            background: var(--primary);
+            color: white;
         }
 
-        .card-header {
-            margin-bottom: 1.5rem;
-            border-bottom: 2px solid #f1f5f9;
-            padding-bottom: 0.8rem;
+        /* Forms */
+        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 15px; }
+        .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
+        label { font-weight: 700; font-size: 0.9rem; color: var(--secondary); }
+        input, select, textarea {
+            padding: 11px 14px;
+            border: 1.5px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            outline: none;
+            transition: 0.2s;
+        }
+        input:focus, select:focus, textarea:focus { border-color: var(--primary-light); box-shadow: 0 0 0 3px rgba(59,130,246,0.15); }
+        
+        .btn {
+            padding: 11px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        .btn-primary { background: var(--primary); color: white; width: 100%; }
+        .btn-primary:hover { background: var(--primary-light); }
+        .btn-success { background: var(--success); color: white; }
+        .btn-danger { background: var(--danger); color: white; }
+        .btn-warning { background: var(--accent); color: var(--secondary); }
+        .btn-sm { padding: 6px 12px; font-size: 0.82rem; }
+
+        /* Alerts & Status Badges */
+        .alert { padding: 15px; border-radius: 10px; margin-bottom: 15px; font-weight: 600; }
+        .alert-info { background: #e0f2fe; color: #0369a1; border: 1px solid #bae6fd; }
+        .alert-success { background: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; }
+        .alert-warning { background: #fef3c7; color: #b45309; border: 1px solid #fde68a; }
+        .alert-danger { background: #fee2e2; color: #b91c1c; border: 1px solid #fecaca; }
+
+        .badge { padding: 4px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; }
+        .badge-pending { background: #fef3c7; color: #b45309; }
+        .badge-approved { background: #dcfce7; color: #15803d; }
+        .badge-rejected { background: #fee2e2; color: #b91c1c; }
+
+        /* Dashboard Layout */
+        .dash-header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            padding: 20px;
+            border-radius: 14px;
+            margin-bottom: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
             gap: 10px;
         }
-
-        .card-header h3 { color: var(--primary-dark); font-size: 1.35rem; font-weight: 800; }
-        .card-header p { color: var(--muted); font-size: 0.9rem; }
-
-        /* النماذج وحقول الإدخال */
-        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; }
-        .form-group { margin-bottom: 1.1rem; }
-        label { display: block; font-weight: 700; margin-bottom: 0.4rem; font-size: 0.92rem; color: var(--secondary); }
-        input, select, textarea {
-            width: 100%;
-            padding: 0.78rem 1rem;
-            border: 1.5px solid #cbd5e1;
-            border-radius: 10px;
-            font-size: 0.95rem;
-            outline: none;
-            transition: 0.2s;
-            background: #f8fafc;
-        }
-        input:focus, select:focus, textarea:focus { border-color: var(--primary); background: #ffffff; box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.1); }
-
-        .pass-wrapper { position: relative; }
-        .toggle-pass {
-            position: absolute;
-            left: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 1.1rem;
-            color: var(--muted);
-        }
-
-        /* الأزرار */
-        .btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 0.8rem 1.4rem;
-            border-radius: 10px;
-            font-size: 0.95rem;
+        .tabs { display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; flex-wrap: wrap; }
+        .tab-btn {
+            background: white;
+            border: 1px solid #cbd5e1;
+            padding: 8px 18px;
+            border-radius: 8px;
             font-weight: 700;
             cursor: pointer;
-            transition: 0.2s;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            text-decoration: none;
+            color: var(--text);
         }
-        .btn:hover { background: var(--primary-dark); transform: translateY(-1px); }
-        .btn-block { width: 100%; }
-        .btn-success { background: var(--success); }
-        .btn-success:hover { background: #059669; }
-        .btn-danger { background: var(--danger); }
-        .btn-danger:hover { background: #dc2626; }
-        .btn-outline { background: transparent; border: 1.5px solid var(--primary); color: var(--primary); }
-        .btn-outline:hover { background: var(--primary); color: white; }
-        .btn-sm { padding: 0.45rem 0.85rem; font-size: 0.82rem; border-radius: 8px; }
+        .tab-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
 
-        /* تبويبات */
-        .auth-tabs, .admin-tabs {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 1.5rem;
-            background: #f1f5f9;
-            padding: 6px;
-            border-radius: 12px;
-            flex-wrap: wrap;
-        }
-
-        .auth-tab, .admin-tab {
-            flex: 1;
-            min-width: 120px;
-            padding: 0.7rem;
-            text-align: center;
-            border-radius: 9px;
-            font-weight: 800;
-            cursor: pointer;
-            border: none;
-            background: transparent;
-            color: var(--muted);
-            transition: 0.2s;
-        }
-
-        .auth-tab.active, .admin-tab.active {
+        .grid-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 18px; }
+        .item-card {
             background: white;
-            color: var(--primary);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-        }
-
-        /* شريط التقدم للطالب */
-        .progress-container {
-            background: #e2e8f0;
-            border-radius: 20px;
-            height: 14px;
-            width: 100%;
-            overflow: hidden;
-            margin: 10px 0;
-        }
-        .progress-bar {
-            background: linear-gradient(90deg, var(--success), #34d399);
-            height: 100%;
-            width: 0%;
-            transition: width 0.5s ease;
-        }
-
-        /* بطاقات الكورسات التفاعلية */
-        .courses-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.4rem; }
-        .course-box {
-            border: 1.5px solid var(--border);
-            border-radius: 16px;
-            overflow: hidden;
-            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 18px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            transition: transform 0.2s, box-shadow 0.2s;
+            gap: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
         }
-        .course-box:hover { transform: translateY(-4px); box-shadow: 0 12px 25px rgba(0, 0, 0, 0.08); }
-        .course-box.completed { border-color: var(--success); }
+        .item-card h3 { color: var(--secondary); font-size: 1.1rem; }
+        .item-card p { color: var(--muted); font-size: 0.9rem; }
 
-        .course-header {
-            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
-            color: white;
-            padding: 1.2rem;
-            position: relative;
-        }
-        .course-header h4 { font-size: 1.15rem; font-weight: 800; }
-        .course-badge {
-            font-size: 0.78rem;
-            background: var(--accent);
-            color: #0f172a;
-            padding: 3px 10px;
-            border-radius: 6px;
-            font-weight: 800;
-            display: inline-block;
-            margin-top: 6px;
-        }
-        .done-tag {
-            position: absolute;
-            top: 12px;
-            left: 12px;
-            background: var(--success);
-            color: white;
-            font-size: 0.75rem;
-            padding: 3px 8px;
-            border-radius: 6px;
-            font-weight: 800;
-        }
+        /* Stats & Tables */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        .stat-box { background: #f8fafc; border: 1px solid #e2e8f0; padding: 15px; border-radius: 10px; text-align: center; }
+        .stat-box h3 { font-size: 1.8rem; color: var(--primary); }
+        .stat-box span { font-size: 0.85rem; color: var(--muted); font-weight: 700; }
 
-        .course-body { padding: 1.2rem; color: var(--text); font-size: 0.94rem; flex-grow: 1; }
+        .table-responsive { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.9rem; }
+        th, td { padding: 12px 10px; text-align: right; border-bottom: 1px solid #e2e8f0; }
+        th { background: #f8fafc; color: var(--secondary); font-weight: 700; }
+
+        /* Exam Box */
+        .exam-question { background: #f8fafc; padding: 15px; border-radius: 10px; margin-bottom: 15px; border: 1px solid #e2e8f0; }
+        .option-label { display: flex; align-items: center; gap: 10px; padding: 8px; cursor: pointer; border-radius: 6px; }
+        .option-label:hover { background: #e2e8f0; }
+
+        footer { text-align: center; padding: 20px; color: var(--muted); font-size: 0.9rem; margin-top: 40px; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="brand">
+        <h1>منصة الطارق للتعليم الثانوي</h1>
+        <span>إشراف المعلم: أ/ محمد أشرف</span>
+    </div>
+    <nav id="mainNav">
+        <button onclick="openAuthPortal('login')" class="active" id="nav-home">بوابة الطلاب (دخول / تسجيل)</button>
+        <button onclick="showSection('teacherLoginSection')" id="nav-teacher">بوابة المعلمين</button>
+    </nav>
+</header>
+
+<div class="container">
+
+    <!-- 1. الصفحة الأولى: اختيار تسجيل الدخول أو إنشاء حساب جديد -->
+    <section id="authPortalSection" class="section active">
+        <div style="text-align: center; margin-bottom: 20px;">
+            <h2 style="color: var(--secondary); font-size: 1.6rem;">أهلاً بك في منصة الطارق للتعليم الثانوي</h2>
+            <p style="color: var(--muted);">اختر تسجيل الدخول لمتابعة كورساتك، أو أنشئ حساباً جديداً للانضمام</p>
+        </div>
+
+        <div class="auth-switcher">
+            <button type="button" id="btnChooseLogin" class="choice-btn active" onclick="switchAuthMode('login')">🔑 تسجيل الدخول</button>
+            <button type="button" id="btnChooseRegister" class="choice-btn" onclick="switchAuthMode('register')">📝 إنشاء حساب جديد</button>
+        </div>
+
+        <!-- نموذج تسجيل الدخول (يظهر أولاً) -->
+        <div id="studentLoginBox" class="card" style="max-width: 520px; margin: 0 auto;">
+            <h2>تسجيل دخول الطالب للكورسات</h2>
+            <p class="subtitle">أدخل رقم هاتفك وكلمة المرور التي أنشأتها عند التسجيل (بعد موافقة المعلم).</p>
